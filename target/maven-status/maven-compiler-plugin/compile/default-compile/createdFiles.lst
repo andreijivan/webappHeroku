@@ -1,0 +1,5 @@
+ro\siit\login\CredentialsValidator.class
+ro\siit\login\LogoutServlet.class
+ro\siit\login\LoginServlet.class
+ro\siit\EntityServlet.class
+ro\siit\login\LoginFilter.class
