@@ -1,4 +1,4 @@
-package ro.siit;
+package ro.siit.servlet;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
