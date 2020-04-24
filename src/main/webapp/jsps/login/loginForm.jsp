@@ -1,9 +1,12 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
         <title>Login to app</title>
     </head>
     <body>
+        <div style="color:red;"><c:out value="${requestScope.error}"/></div>
         <form method="post">
             <label for="username">Username</label>
             <input type="text" name="username" id="username"> <br>
