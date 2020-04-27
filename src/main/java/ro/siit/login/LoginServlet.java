@@ -1,6 +1,6 @@
 package ro.siit.login;
 
-import ro.siit.login.service.UserService;
+import ro.siit.service.UserService;
 import ro.siit.model.User;
 
 import javax.servlet.ServletException;

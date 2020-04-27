@@ -1,7 +1,0 @@
-ro\siit\login\LoginFilter.class
-ro\siit\login\RegisterServlet.class
-ro\siit\servlet\EntityServlet.class
-ro\siit\login\LogoutServlet.class
-ro\siit\login\service\UserService.class
-ro\siit\login\LoginServlet.class
-ro\siit\model\User.class

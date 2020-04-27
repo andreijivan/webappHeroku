@@ -1,4 +1,4 @@
-package ro.siit.login.service;
+package ro.siit.service;
 import ro.siit.model.User;
 
 import java.sql.*;
@@ -18,7 +18,7 @@ public class UserService {
 
     public boolean registerUser(User user){
         try{
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO * login (id, username, pwd) VALUES  (?, ?, ?)");
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO login (id, username, pwd) VALUES (?, ?, ?)");
             ps.setObject(1,user.getId());
             ps.setString(2, user.getUsername());
             ps.setString(3, user.getPassword());

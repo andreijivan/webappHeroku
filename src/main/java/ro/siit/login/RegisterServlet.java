@@ -1,6 +1,6 @@
 package ro.siit.login;
 
-import ro.siit.login.service.UserService;
+import ro.siit.service.UserService;
 import ro.siit.model.User;
 
 import javax.servlet.ServletException;
@@ -15,7 +15,6 @@ import java.util.UUID;
 public class RegisterServlet extends HttpServlet {
 
     private UserService userService;
-
     @Override
     public void init() throws ServletException {
         super.init();
@@ -24,13 +23,17 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("displayError", "none");
+        req.setAttribute("displaySuccess", "none");
+        req.getRequestDispatcher("/jsps/login/registerForm.jsp").forward(req,resp);
+
         String action = req.getParameter("action");
         if (action.equals("validate-username")){
             String username = req.getParameter("username");
            boolean exists = userService.usernameExists(username);
            resp.setContentType("application/json");
             resp.getWriter().println("{exists: " + exists + "}");
-        } else{
+        } else {
         req.setAttribute("displayError", "none");
         req.setAttribute("displaySuccess", "none");
         req.getRequestDispatcher("/jsps/login/registerForm.jsp").forward(req,resp);
