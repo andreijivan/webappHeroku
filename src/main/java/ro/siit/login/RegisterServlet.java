@@ -1,5 +1,6 @@
 package ro.siit.login;
 
+import ro.siit.login.service.UserService;
 import ro.siit.model.User;
 
 import javax.servlet.ServletException;
@@ -8,37 +9,53 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.UUID;
 
 @WebServlet(urlPatterns = {"/register"})
 public class RegisterServlet extends HttpServlet {
 
-    private CredentialsValidator credentialsValidator;
+    private UserService userService;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        credentialsValidator = new CredentialsValidator();
+        userService = new UserService();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("display", "none");
+        String action = req.getParameter("action");
+        if (action.equals("validate-username")){
+            String username = req.getParameter("username");
+           boolean exists = userService.usernameExists(username);
+           resp.setContentType("application/json");
+            resp.getWriter().println("{exists: " + exists + "}");
+        } else{
+        req.setAttribute("displayError", "none");
+        req.setAttribute("displaySuccess", "none");
         req.getRequestDispatcher("/jsps/login/registerForm.jsp").forward(req,resp);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String pwd = req.getParameter("password");
-        User authenticatedUser = credentialsValidator.checkCredentials(username,pwd);
-        if (authenticatedUser !=null){
-            req.getSession().setAttribute("authenticatedUser",authenticatedUser);
-            resp.sendRedirect(req.getContextPath() + "/entity");
+
+        boolean usernameExists = userService.usernameExists(username);
+        if (!usernameExists){
+            User user = new User(UUID.randomUUID(),username,pwd);
+            userService.registerUser(user);
+            req.setAttribute("displaySuccess","block");
+            req.setAttribute("displayError","none");
+            req.setAttribute("success", "User registered successfully.");
         }
         else{
-            req.setAttribute("error", "Username/Password combination incorrect.");
-            req.getRequestDispatcher("/jsps/login/loginForm.jsp").forward(req,resp);
+            req.setAttribute("displayError","block");
+            req.setAttribute("displaySuccess","none");
+            req.setAttribute("error", "Username already used.");
         }
+        req.getRequestDispatcher("/jsps/login/registerForm.jsp").forward(req,resp);
 
 
     }
