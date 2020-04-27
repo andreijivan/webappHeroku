@@ -25,13 +25,13 @@ public class CredentialsValidator {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()){
-                return new User(UUID.fromString(rs.getObject(1).toString(),rs.getString(2),rs.getString(3));
+                return new User(UUID.fromString(rs.getObject(1).toString()),rs.getString(2),rs.getString(3));
             }
-            else return false;
+            else return null;
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 }

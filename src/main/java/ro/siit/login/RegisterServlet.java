@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/login"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/register"})
+public class RegisterServlet extends HttpServlet {
 
     private CredentialsValidator credentialsValidator;
 
@@ -23,7 +23,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("display", "none");
-        req.getRequestDispatcher("/jsps/login/loginForm.jsp").forward(req,resp);
+        req.getRequestDispatcher("/jsps/login/registerForm.jsp").forward(req,resp);
     }
 
     @Override
@@ -37,7 +37,6 @@ public class LoginServlet extends HttpServlet {
         }
         else{
             req.setAttribute("error", "Username/Password combination incorrect.");
-            req.setAttribute("display", "block");
             req.getRequestDispatcher("/jsps/login/loginForm.jsp").forward(req,resp);
         }
 

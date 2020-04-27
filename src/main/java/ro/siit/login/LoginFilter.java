@@ -12,7 +12,7 @@ public class LoginFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        Object authenticated =  httpServletRequest.getSession().getAttribute("authenticated");
+        Object authenticated =  httpServletRequest.getSession().getAttribute("authenticatedUser");
         if (authenticated != null){
             chain.doFilter(request, response);
         } else {

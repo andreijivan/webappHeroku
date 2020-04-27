@@ -1,5 +1,7 @@
 package ro.siit.servlet;
 
+import ro.siit.model.User;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +13,7 @@ public class EntityServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("application/json");
-        resp.getWriter().println("{message: \"Hello World\"}");
+        User authenticatedUser = (User)req.getSession().getAttribute("authenticatedUser");
+        resp.getWriter().println("{authenticatedUser: " + authenticatedUser.getUsername() + "}");
     }
 }
